@@ -42,10 +42,10 @@ remove_chastisements = remove_chastisements(schoolkid)
 
 Доступны 3 переменные:
 
-DEBUG — дебаг-режим. Поставьте True, чтобы увидеть отладочную информацию в случае ошибки.
-SECRET_KEY — секретный ключ проекта
-ALLOWED_HOSTS — см документацию Django.
-DATABASE_NAME — путь до базы данных, например: schoolbase.sqlite3
+- DEBUG — дебаг-режим. Поставьте True, чтобы увидеть отладочную информацию в случае ошибки.
+- SECRET_KEY — секретный ключ проекта
+- ALLOWED_HOSTS — см документацию Django.
+- DATABASE_NAME — путь до базы данных, например: schoolbase.sqlite3
 
 ## Цели проекта
 

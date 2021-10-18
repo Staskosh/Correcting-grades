@@ -47,8 +47,8 @@ try:
     try:
         subject = input('Введите название предмета')
         create_commendation = create_commendation(schoolkid, subject)
-    except (ObjectDoesNotExist, AttributeError):
+    except (Lesson.ObjectDoesNotExist, Lesson.AttributeError):
         print("Не удалось найти предмет с таким именем или есть несколько предметов")
-except (ObjectDoesNotExist, MultipleObjectsReturned):
+except (Schoolkid.ObjectDoesNotExist, Schoolkid.MultipleObjectsReturned):
     print("Не удалось найти ученика с таким именем или есть несколько учеников")
 

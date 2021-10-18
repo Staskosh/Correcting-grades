@@ -10,13 +10,13 @@ from datacenter.models import (
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 
 
-def schoolkid_define():
+def define_schoolkid():
     schoolboy = input('Введите имя ученика')
     schoolkid = Schoolkid.objects.get(full_name__contains=schoolboy)
     return  schoolkid
 
 
-def subject_define():
+def define_subject():
     subject = input('Введите название предмета')
     return subject
 

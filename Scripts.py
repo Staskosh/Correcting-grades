@@ -10,15 +10,9 @@ from datacenter.models import (
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 
 
-def define_schoolkid():
-    schoolboy = input('Введите имя ученика')
+def define_schoolkid(schoolboy):
     schoolkid = Schoolkid.objects.get(full_name__contains=schoolboy)
     return  schoolkid
-
-
-def define_subject():
-    subject = input('Введите название предмета')
-    return subject
 
 
 def fix_marks(schoolkid):
@@ -46,11 +40,12 @@ def create_commendation(schoolkid, subject):
 
 
 try:
-    schoolkid = schoolkid_define()
+    schoolboy = input('Введите имя ученика')
+    schoolkid = schoolkid_define(schoolboy)
     fix_mark = fix_marks(schoolkid)
     remove_chastisements = remove_chastisements(schoolkid)
     try:
-        subject = subject_define()
+        subject = input('Введите название предмета')
         create_commendation = create_commendation(schoolkid, subject)
     except (ObjectDoesNotExist, AttributeError):
         print("Не удалось найти предмет с таким именем или есть несколько предметов")

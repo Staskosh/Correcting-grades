@@ -12,7 +12,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 
 def define_schoolkid(schoolboy):
     schoolkid = Schoolkid.objects.get(full_name__contains=schoolboy)
-    return  schoolkid
+    return schoolkid
 
 
 def fix_marks(schoolkid):
@@ -39,16 +39,19 @@ def create_commendation(schoolkid, subject):
     Commendation.objects.create(text=text, created=created, schoolkid=schoolkid, subject=subject, teacher=teacher)
 
 
-try:
-    schoolboy = input('Введите имя ученика')
-    schoolkid = schoolkid_define(schoolboy)
-    fix_mark = fix_marks(schoolkid)
-    remove_chastisements = remove_chastisements(schoolkid)
+def main():
     try:
-        subject = input('Введите название предмета')
-        create_commendation = create_commendation(schoolkid, subject)
-    except (Lesson.ObjectDoesNotExist, Lesson.AttributeError):
-        print("Не удалось найти предмет с таким именем или есть несколько предметов")
-except (Schoolkid.ObjectDoesNotExist, Schoolkid.MultipleObjectsReturned):
-    print("Не удалось найти ученика с таким именем или есть несколько учеников")
+        schoolboy = input('Введите имя ученика')
+        schoolkid = define_schoolkid(schoolboy)
+        marks_fixed = fix_marks(schoolkid)
+        chastisements_removed = remove_chastisements(schoolkid)
+        try:
+            subject = input('Введите название предмета')
+            commendation_created = create_commendation(schoolkid, subject)
+        except (Lesson.DoesNotExist, AttributeError):
+            print("Не удалось найти предмет с таким именем или есть несколько предметов")
+    except (Schoolkid.DoesNotExist, Schoolkid.MultipleObjectsReturned):
+        print("Не удалось найти ученика с таким именем или есть несколько учеников")
 
+if __name__ == '__main__':
+    main()

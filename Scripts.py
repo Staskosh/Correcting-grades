@@ -7,7 +7,6 @@ from datacenter.models import (
     Mark,
     Schoolkid,
 )
-from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 
 
 def define_schoolkid(schoolboy):
@@ -28,15 +27,21 @@ def remove_chastisements(schoolkid):
 
 
 def create_commendation(schoolkid, subject):
-    text_samples=['Молодец!','Отлично!','Хорошо!','Гораздо лучше, чем я ожидал!','Ты меня приятно удивил!','Великолепно!','Прекрасно!','Ты меня очень обрадовал!','Именно этого я давно ждал от тебя!','Сказано здорово – просто и ясно!']
+    text_samples = ['Молодец!', 'Отлично!', 'Хорошо!', 'Гораздо лучше, чем я ожидал!',
+                    'Ты меня приятно удивил!', 'Великолепно!', 'Прекрасно!', 'Ты меня очень обрадовал!',
+                    'Именно этого я давно ждал от тебя!', 'Сказано здорово – просто и ясно!'
+                    ]
     text = random.choice(text_samples)
     subject_lessons = Lesson.objects.filter(year_of_study__contains='6', group_letter__contains='А',
-                                         subject__title=subject)
-    last_class=subject_lessons.order_by('date').first()
+                                            subject__title=subject
+                                            )
+    last_class = subject_lessons.order_by('date').first()
     subject = last_class.subject
     created = last_class.date
     teacher = last_class.teacher
-    Commendation.objects.create(text=text, created=created, schoolkid=schoolkid, subject=subject, teacher=teacher)
+    Commendation.objects.create(text=text, created=created, schoolkid=schoolkid,
+                                subject=subject, teacher=teacher
+                                )
 
 
 def main():

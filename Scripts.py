@@ -9,8 +9,8 @@ from datacenter.models import (
 )
 
 
-def define_schoolkid(schoolboy):
-    schoolkid = Schoolkid.objects.get(full_name__contains=schoolboy)
+def define_schoolkid(full_name):
+    schoolkid = Schoolkid.objects.get(full_name__contains=full_name)
     return schoolkid
 
 
@@ -46,8 +46,8 @@ def create_commendation(schoolkid, subject):
 
 def main():
     try:
-        schoolboy = input('Введите имя ученика')
-        schoolkid = define_schoolkid(schoolboy)
+        full_name = input('Введите имя ученика')
+        schoolkid = define_schoolkid(full_name)
         marks_fixed = fix_marks(schoolkid)
         chastisements_removed = remove_chastisements(schoolkid)
         try:

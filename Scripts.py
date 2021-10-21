@@ -35,7 +35,7 @@ def create_commendation(schoolkid, subject):
     subject_lessons = Lesson.objects.filter(year_of_study__contains='6', group_letter__contains='А',
                                             subject__title=subject
                                             )
-    last_class = subject_lessons.order_by('date').first()
+    last_class = subject_lessons.order_by('date')[:1].get()
     subject = last_class.subject
     created = last_class.date
     teacher = last_class.teacher
@@ -53,7 +53,7 @@ def main():
         try:
             subject = input('Введите название предмета')
             commendation_created = create_commendation(schoolkid, subject)
-        except (Lesson.DoesNotExist, AttributeError):
+        except (Lesson.DoesNotExist):
             print("Не удалось найти предмет с таким именем или есть несколько предметов")
     except (Schoolkid.DoesNotExist, Schoolkid.MultipleObjectsReturned):
         print("Не удалось найти ученика с таким именем или есть несколько учеников")
